@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Appointment Booking</title>
+
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-box {
+            width: 400px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Hospital Appointment Booking Form</h2>
+
+<div class="form-box">
+    <form id="appointmentForm_gopal">
+
+        <label>Patient Name:</label>
+        <input type="text" id="name_gopal" name="name_gopal">
+
+       
+        <label>Age:</label>
+        <input type="number" id="age_gopal" name="age_gopal">
+
+       
+        <label>Phone Number:</label>
+        <input type="text" id="phone_gopal" name="phone_gopal" placeholder="98XXXXXXXX">
+
+       
+        <label>Department:</label>
+        <select id="department_gopal" name="department_gopal">
+            <option value="">-- Select Department --</option>
+            <option value="General">General</option>
+            <option value="ENT">ENT</option>
+            <option value="Dental">Dental</option>
+            <option value="Cardiology">Cardiology</option>
+        </select>
+
+        
+        <label>Appointment Date:</label>
+        <input type="date" id="date_gopal" name="date_gopal">
+
+        
+        <label>Time Slot:</label>
+        <select id="time_gopal" name="time_gopal">
+            <option value="">-- Select Time Slot --</option>
+            <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+            <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+            <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+        </select>
+
+        <button type="submit">Book Appointment</button>
+    </form>
+</div>
+
+
+<script>
+document.getElementById("appointmentForm_gopal").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    var name = document.getElementById("name_gopal").value.trim();
+    var age = document.getElementById("age_gopal").value;
+    var phone = document.getElementById("phone_gopal").value.trim();
+    var department = document.getElementById("department_gopal").value;
+    var date = document.getElementById("date_gopal").value;
+    var time = document.getElementById("time_gopal").value;
+
+    var namePattern = /^[A-Za-z ]+$/;
+    var phonePattern = /^(98|97)[0-9]{8}$/;
+
+    
+    if (name === "" || !namePattern.test(name)) {
+        alert("Name is required and must contain only letters");
+        return;
+    }
+
+   
+    if (age <= 0) {
+        alert("Age must be greater than 0");
+        return;
+    }
+
+  
+    if (!phonePattern.test(phone)) {
+        alert("Phone number must be 10 digits and start with 98 or 97");
+        return;
+    }
+
+   
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    var selectedDate = new Date(date);
+
+    if (date === "" || selectedDate < today) {
+        alert("Appointment date cannot be in the past");
+        return;
+    }
+
+    
+    if (department === "") {
+        alert("Please select department");
+        return;
+    }
+
+    if (time === "") {
+        alert("Please select time slot");
+        return;
+    }
+
+    
+    alert("✅ Appointment booked successfully for " + name);
+});
+</script>
+
+</body>
+</html>

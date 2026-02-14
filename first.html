@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrance Exam Registration</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            width: 400px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 6px;
+            margin-top: 4px;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button[type="reset"] {
+            background-color: #f44336;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #message_gopal {
+            text-align: center;
+            font-weight: bold;
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Entrance Exam Registration Form</h2>
+
+<form id="examForm_gopal">
+
+    
+    <label>Full Name:</label>
+    <input type="text" id="fullname_gopal" name="fullname_gopal" required>
+
+
+    <label>Date of Birth:</label>
+    <input type="date" id="dob_gopal" name="dob_gopal" required>
+
+    <label>Age:</label>
+    <input type="number" id="age_gopal" name="age_gopal" required>
+
+   
+    <label>Phone Number:</label>
+    <input type="text" id="phone_gopal" name="phone_gopal" placeholder="98XXXXXXXX" required>
+
+    <label>Email Address:</label>
+    <input type="email" id="email_gopal" name="email_gopal" required>
+
+   
+    <label>Gender:</label><br>
+    <input type="radio" name="gender_gopal" value="Male"> Male
+    <input type="radio" name="gender_gopal" value="Female"> Female
+    <input type="radio" name="gender_gopal" value="Other"> Other
+    <br><br>
+
+    
+    <label>Exam Stream:</label>
+    <select id="stream_gopal" name="stream_gopal" required>
+        <option value="">-- Select Stream --</option>
+        <option value="Science">Science</option>
+        <option value="Management">Management</option>
+        <option value="Arts">Arts</option>
+    </select>
+
+   
+    <input type="checkbox" id="agree_gopal" name="agree_gopal">
+    <label for="agree_gopal">I confirm all details are correct</label>
+    <br><br>
+
+    
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+
+</form>
+
+<p id="message_gopal"></p>
+
+
+<script>
+document.getElementById("examForm_gopal").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var name = document.getElementById("fullname_gopal").value.trim();
+    var age = document.getElementById("age_gopal").value;
+    var phone = document.getElementById("phone_gopal").value;
+    var stream = document.getElementById("stream_gopal").value;
+    var agree = document.getElementById("agree_gopal").checked;
+    var gender = document.getElementsByName("gender_gopal");
+
+    var namePattern = /^[A-Za-z ]+$/;
+    var phonePattern = /^(98|97)[0-9]{8}$/;
+
+    if (!namePattern.test(name)) {
+        alert("Name must contain only letters");
+        return;
+    }
+
+    if (age < 16 || age > 30) {
+        alert("Age must be between 16 and 30");
+        return;
+    }
+
+    if (!phonePattern.test(phone)) {
+        alert("Phone number must start with 98 or 97 and be 10 digits");
+        return;
+    }
+
+    var genderSelected = false;
+    for (var i = 0; i < gender.length; i++) {
+        if (gender[i].checked) {
+            genderSelected = true;
+        }
+    }
+
+    if (!genderSelected) {
+        alert("Please select gender");
+        return;
+    }
+
+    if (stream === "") {
+        alert("Please select exam stream");
+        return;
+    }
+
+    if (!agree) {
+        alert("You must confirm the agreement");
+        return;
+    }
+
+    document.getElementById("message_gopal").innerHTML =
+        "✅ Registration Successful! Page will refresh in 5 seconds.";
+
+    setTimeout(function () {
+        location.reload();
+    }, 5000);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Mark Sheet Generator</title>
+
+    <!-- SIMPLE HUMAN-WRITTEN CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaeaea;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result-box {
+            width: 400px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .result-box h3 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Student Mark Sheet Generator</h2>
+
+<div class="container">
+    <form id="marksForm_gopal">
+
+        <label>Student Name:</label>
+        <input type="text" id="name_gopal" name="name_gopal" required>
+
+        <label>Roll Number:</label>
+        <input type="number" id="roll_gopal" name="roll_gopal" required>
+
+        <label>Marks in English:</label>
+        <input type="number" id="english_gopal" name="english_gopal" required>
+
+        <label>Marks in Math:</label>
+        <input type="number" id="math_gopal" name="math_gopal" required>
+
+        <label>Marks in Science:</label>
+        <input type="number" id="science_gopal" name="science_gopal" required>
+
+        <button type="submit">Generate Marksheet</button>
+    </form>
+</div>
+
+<div id="result_gopal" class="result-box" style="display:none;"></div>
+
+<!-- SIMPLE JAVASCRIPT -->
+<script>
+document.getElementById("marksForm_gopal").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var name = document.getElementById("name_gopal").value.trim();
+    var roll = document.getElementById("roll_gopal").value;
+    var eng = Number(document.getElementById("english_gopal").value);
+    var math = Number(document.getElementById("math_gopal").value);
+    var sci = Number(document.getElementById("science_gopal").value);
+
+    // VALIDATION
+    if (name === "" || roll === "") {
+        alert("No field can be empty");
+        return;
+    }
+
+    if (eng < 0 || eng > 100 || math < 0 || math > 100 || sci < 0 || sci > 100) {
+        alert("Marks must be between 0 and 100");
+        return;
+    }
+
+    // CALCULATION
+    var total = eng + math + sci;
+    var percentage = (total / 300) * 100;
+
+    // RESULT
+    var result = "Pass";
+    if (eng < 40 || math < 40 || sci < 40) {
+        result = "Fail";
+    }
+
+    // GRADE
+    var grade;
+    if (percentage >= 80) {
+        grade = "A";
+    } else if (percentage >= 60) {
+        grade = "B";
+    } else if (percentage >= 40) {
+        grade = "C";
+    } else {
+        grade = "Fail";
+    }
+
+    // DISPLAY OUTPUT
+    document.getElementById("result_gopal").style.display = "block";
+    document.getElementById("result_gopal").innerHTML =
+        "<h3>Mark Sheet</h3>" +
+        "Name: " + name + "<br>" +
+        "Roll No: " + roll + "<br><br>" +
+        "Total Marks: " + total + " / 300<br>" +
+        "Percentage: " + percentage.toFixed(2) + "%<br>" +
+        "Result: " + result + "<br>" +
+        "Grade: " + grade;
+});
+</script>
+
+</body>
+</html>

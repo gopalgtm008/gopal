@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIM Card Registration Form</title>
+
+ 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaeaea;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        button {
+            padding: 8px 15px;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #message_gopal {
+            text-align: center;
+            font-weight: bold;
+            color: green;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>SIM Card Registration Form</h2>
+
+<div class="container">
+    <form id="simForm_gopal">
+
+       
+        <label>Full Name:</label>
+        <input type="text" id="fullname_gopal" name="fullname_gopal" required>
+
+
+        <label>Citizenship Number:</label>
+        <input type="text" id="citizenship_gopal" name="citizenship_gopal" required>
+
+       
+        <label>SIM Type:</label><br>
+        <input type="radio" name="simtype_gopal" value="Prepaid"> Prepaid
+        <input type="radio" name="simtype_gopal" value="Postpaid"> Postpaid
+        <br><br>
+
+       
+        <label>Date of Birth:</label>
+        <input type="date" id="dob_gopal" name="dob_gopal" required>
+
+       
+        <label>Nationality:</label>
+        <select id="nationality_gopal" name="nationality_gopal" required>
+            <option value="">-- Select Nationality --</option>
+            <option value="Nepali">Nepali</option>
+            <option value="Indian">Indian</option>
+            <option value="Other">Other</option>
+        </select>
+
+        
+        <input type="checkbox" id="terms_gopal" name="terms_gopal">
+        <label for="terms_gopal">I accept Terms & Conditions</label>
+        <br><br>
+
+        <button type="submit">Register SIM</button>
+    </form>
+
+    <p id="message_gopal"></p>
+</div>
+
+
+<script>
+document.getElementById("simForm_gopal").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var name = document.getElementById("fullname_gopal").value.trim();
+    var citizenship = document.getElementById("citizenship_gopal").value.trim();
+    var dob = document.getElementById("dob_gopal").value;
+    var terms = document.getElementById("terms_gopal").checked;
+    var simtype = document.getElementsByName("simtype_gopal");
+
+    var namePattern = /^[A-Za-z ]+$/;
+
+   
+    if (!namePattern.test(name)) {
+        alert("Name must contain only letters");
+        return;
+    }
+
+   
+    if (citizenship.length < 10) {
+        alert("Citizenship number must be at least 10 characters");
+        return;
+    }
+
+   
+    var birthDate = new Date(dob);
+    var today = new Date();
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    if (age < 18) {
+        alert("Age must be 18 or above");
+        return;
+    }
+
+   
+    var simSelected = false;
+    for (var i = 0; i < simtype.length; i++) {
+        if (simtype[i].checked) {
+            simSelected = true;
+        }
+    }
+
+    if (!simSelected) {
+        alert("Please select SIM type");
+        return;
+    }
+
+    if (!terms) {
+        alert("You must accept Terms & Conditions");
+        return;
+    }
+
+    
+    document.getElementById("message_gopal").innerHTML =
+        "✅ SIM Card Registration Successful!";
+});
+</script>
+
+</body>
+</html>

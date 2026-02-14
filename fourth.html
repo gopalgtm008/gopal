@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Course Enrollment</title>
+
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .box {
+            width: 400px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Online Course Enrollment Form</h2>
+
+<div class="box">
+    <form id="courseForm_gopal">
+
+        <!-- STUDENT NAME -->
+        <label>Student Name:</label>
+        <input type="text" id="name_gopal" name="name_gopal">
+
+        <!-- EMAIL -->
+        <label>Email:</label>
+        <input type="text" id="email_gopal" name="email_gopal">
+
+        <!-- COURSE NAME -->
+        <label>Course Name:</label>
+        <select id="course_gopal" name="course_gopal">
+            <option value="">-- Select Course --</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Python Programming">Python Programming</option>
+            <option value="Cyber Security">Cyber Security</option>
+        </select>
+
+        <!-- MODE OF STUDY -->
+        <label>Mode of Study:</label><br>
+        <input type="radio" name="mode_gopal" value="Online"> Online
+        <input type="radio" name="mode_gopal" value="Offline"> Offline
+        <br><br>
+
+        <!-- EXPERIENCE -->
+        <label>Previous Experience:</label><br>
+        <input type="radio" name="exp_gopal" value="Yes" onclick="showExp_gopal()"> Yes
+        <input type="radio" name="exp_gopal" value="No" onclick="hideExp_gopal()"> No
+        <br><br>
+
+        <!-- EXPERIENCE DETAILS -->
+        <div id="expBox_gopal" style="display:none;">
+            <label>Experience Details:</label>
+            <textarea id="expdetails_gopal" name="expdetails_gopal" rows="3"></textarea>
+        </div>
+
+        <button type="submit">Enroll Now</button>
+    </form>
+</div>
+
+
+<script>
+function showExp_gopal() {
+    document.getElementById("expBox_gopal").style.display = "block";
+}
+
+function hideExp_gopal() {
+    document.getElementById("expBox_gopal").style.display = "none";
+}
+
+document.getElementById("courseForm_gopal").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    var name = document.getElementById("name_gopal").value.trim();
+    var email = document.getElementById("email_gopal").value.trim();
+    var course = document.getElementById("course_gopal").value;
+    var mode = document.getElementsByName("mode_gopal");
+    var exp = document.getElementsByName("exp_gopal");
+    var expDetails = document.getElementById("expdetails_gopal").value.trim();
+
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    
+    if (name === "" || email === "") {
+        alert("Name and Email are required");
+        return;
+    }
+
+    if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address");
+        return;
+    }
+
+    
+    if (course === "") {
+        alert("Please select a course");
+        return;
+    }
+
+    
+    var modeSelected = false;
+    for (var i = 0; i < mode.length; i++) {
+        if (mode[i].checked) {
+            modeSelected = true;
+        }
+    }
+
+    if (!modeSelected) {
+        alert("Please select mode of study");
+        return;
+    }
+
+    var expValue = "";
+    for (var i = 0; i < exp.length; i++) {
+        if (exp[i].checked) {
+            expValue = exp[i].value;
+        }
+    }
+
+    if (expValue === "") {
+        alert("Please select previous experience");
+        return;
+    }
+
+    if (expValue === "Yes" && expDetails === "") {
+        alert("Please enter experience details");
+        return;
+    }
+
+  
+    alert("✅ Enrollment Successful!");
+});
+</script>
+
+</body>
+</html>
